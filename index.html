@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>awesome engg</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  
+</head>
+
+<body>
+    <div id="parent">
+        <div id="map">map</div>
+        <div id="panel">
+            panel
+        </div>
+    </div>
+</body>
+<style>
+    div, body{
+        margin:0;
+        padding:0;
+    }
+    #parent{
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+    }
+    
+    #map{
+        width: 65vw;
+        background-color: blue;
+        position: relative;
+    }
+    .mapComponent{
+        opacity: 0%;
+        background-color: white;
+        position: absolute;
+    }
+    
+    #panel{
+        width: 35vw;
+        background-color: red;
+    }
+    .panelComponent{
+        height: 30px;
+        background-color: pink;
+        border-style: solid;
+        border-color: rgba(0, 0, 0, 50%);
+        border-width: 0px 0px 1px 3px;
+    }
+</style>
+<script>
+    class Component{
+        constructor(n, w, h, l, t){
+            this.name = n;
+            
+            let pc = document.createElement('div');
+            pc.classList.add("panelComponent");
+            document.getElementById("panel").appendChild(pc);
+            pc.innerHTML = n;
+            pc.addEventListener("mouseover", this.handleMouseover.bind(this));
+            pc.addEventListener("mouseout", this.handleMouseout.bind(this));
+            this.panelComponent = pc;
+            
+            let mc = document.createElement('div');
+            mc.classList.add("mapComponent");
+            mc.style.width = w
+            mc.style.height = h;
+            mc.style.left = l;
+            mc.style.top = t;
+            document.getElementById("map").appendChild(mc);
+            mc.innerHTML = n;
+            this.mapComponent = mc;
+        }
+        handleMouseover(){
+            this.highlight(30);
+        }
+        handleMouseout(){
+            this.highlight(100);
+        }
+        highlight(intensity){
+            console.log(this.name);
+            this.panelComponent.style.opacity = intensity+"%";
+            this.mapComponent.style.opacity = (100-intensity)+"%";
+        }
+    }
+    var brd = new Component("breindel", "50px", "150px", "50%", "50%");
+    var sam = new Component("samuel", "10px", "10px", "0px", "20px");
+    var ghe = new Component("gherson", "100px","60px", "10%", "10%");
+</script>
+
+</html>
