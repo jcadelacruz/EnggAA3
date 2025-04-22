@@ -45,16 +45,21 @@
         background-color: red;
     }
     .panelComponent{
-        height: 30px;
         background-color: pink;
         border-style: solid;
         border-color: rgba(0, 0, 0, 50%);
         border-width: 0px 0px 1px 3px;
     }
+    .panelDetails{
+        display: none;
+    }
 </style>
 <script>
+    const allComps = [];
     class Component{
         constructor(n, w, h, l, t){
+            allComps.push(this);
+        
             this.name = n;
             
             let pc = document.createElement('div');
@@ -63,7 +68,14 @@
             pc.innerHTML = n;
             pc.addEventListener("mouseover", this.handleMouseover.bind(this));
             pc.addEventListener("mouseout", this.handleMouseout.bind(this));
+            pc.addEventListener("click", this.handleClick.bind(this));
             this.panelComponent = pc;
+            
+            let pd = document.createElement('div');
+            pd.classList.add("panelDetails");
+            this.panelComponent.appendChild(pd);
+            pd.innerHTML = "PANEL DETAILS OF " +n;
+            this.panelDetails = pd;
             
             let mc = document.createElement('div');
             mc.classList.add("mapComponent");
@@ -73,18 +85,48 @@
             mc.style.top = t;
             document.getElementById("map").appendChild(mc);
             mc.innerHTML = n;
+            mc.addEventListener("mouseover", this.handleMouseover.bind(this));
+            mc.addEventListener("mouseout", this.handleMouseout.bind(this));
             this.mapComponent = mc;
+            
+            this.clicked = false;
+        }
+        handleClick(){
+            allComps.forEach(this.unclick);
+            this.clicked = true
+            this.panelDetails.style.display = "block";
+            this.highlight(85,true);
+        }
+        unclick(value, index, array){
+            if(value.clicked){
+                value.clicked = false;
+                value.handleMouseout();
+                
+                value.panelDetails.style.display = "none";
+            }
         }
         handleMouseover(){
-            this.highlight(30);
+            if(this.clicked){
+            }
+            else{
+                this.highlight(75, true);
+            }
         }
         handleMouseout(){
-            this.highlight(100);
+            if(this.clicked){
+            }
+            else{
+                this.highlight(100, true);
+            }
         }
-        highlight(intensity){
-            console.log(this.name);
+        highlight(intensity, isReversed){
             this.panelComponent.style.opacity = intensity+"%";
-            this.mapComponent.style.opacity = (100-intensity)+"%";
+            if(isReversed){
+                this.mapComponent.style.opacity = (100-(intensity))*2+"%";
+            }
+            else{
+                this.mapComponent.style.opacity = (intensity/2.2)+"%";
+            }
         }
     }
     var brd = new Component("breindel", "50px", "150px", "50%", "50%");
