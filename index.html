@@ -14,6 +14,7 @@
         <div id="left">
             <div id="map">map</div>
             <div id="zoomBtns">
+              <button id="zoomReset">R</button>
               <button id="zoomOut">-</button>
               <button id="zoomIn">+</button>
             </div>
@@ -66,7 +67,7 @@
     }
     #map{
         width: 65vw;
-        height: 100vh;
+        height: 50.227vw;
         background-color: white;
         
         position: relative;
@@ -113,7 +114,7 @@
 </style>
 <script>
     const allComps = [], leftW = 65, minMapW = 65;
-    let mapW = 80;
+    let mapW = 55;
     
     function setMapSize(w){
         h = w*8.5/11;
@@ -133,6 +134,10 @@
         const map = document.getElementById('map');
         map.style.transform = "scale("+s+")";
     }
+    document.getElementById('zoomReset').addEventListener('click', function() {
+        scale = 1;
+        scaleMap(scale);
+    });
     document.getElementById('zoomIn').addEventListener('click', function() {
         scale += 0.1;
         scaleMap(scale);
@@ -142,6 +147,12 @@
         if (scale < 1) scale = 1;
         scaleMap(scale);
     });
+    function setMapTransformOrigin(comp){
+        const map = document.getElementById('map');
+        const x = ((parseInt(comp.width.slice(0,-1))/2)+ parseInt(comp.left.slice(0,-1)));
+        const y = ((parseInt(comp.height.slice(0,-1))/2)+parseInt(comp.top.slice(0,-1)));
+        map.style.transformOrigin = x+"% "+y+"%";
+    }
     
     class Component{
         constructor(n, w,h,l,t, i,d,c){
@@ -155,10 +166,14 @@
             
             let mc = document.createElement('div');
             mc.classList.add("mapComponent");
-            mc.style.width = w
+            mc.style.width = w;
             mc.style.height = h;
             mc.style.left = l;
             mc.style.top = t;
+            this.width = w;
+            this.height = h;
+            this.left = l;
+            this.top = t;
             document.getElementById("map").appendChild(mc);
             mc.innerHTML = n;
             mc.style.backgroundColor = c;
@@ -174,6 +189,7 @@
             
             this.panelDetails.open();
             this.highlight(85,false);
+            setMapTransformOrigin(this);
         }
         unclick(value, index, array){
             if(value.clicked){
@@ -273,10 +289,11 @@
     var title = new Component("Title",0,0,0,0);
     //title.panelDetails.disabled = true;
     title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
+    var brd = new Component("breindel", "5%" , "15%", "50%", "50%", "", "This is breindel yes", "#8f00ff");
+    var sam = new Component("samuel"  , "1%" , "1%" , "0%" , "2%" , "", "smol", "#40ff8c");
+    var ghe = new Component("gherson" , "10%", "6%" , "10%", "10%", "", "hrm chem bio", "#ff4040");
     title.handleClick();
-    var brd = new Component("breindel", "50px", "150px", "50%", "50%", "", "This is breindel yes", "#8f00ff");
-    var sam = new Component("samuel", "10px", "10px", "0px", "20px", "", "smol", "#40ff8c");
-    var ghe = new Component("gherson", "100px","60px", "10%", "10%", "", "hrm chem bio", "#ff4040");
+    
 </script>
 
 </html>
