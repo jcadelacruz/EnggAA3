@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>component title</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  
+</head>
+
+<body>
+    <button>back</button>
+    <div id="banner">
+        banner
+        <img src="" alt="component image"></img>
+        <div id="bannerText">
+            <h1>component name !!!</h1>
+            <p>bla bla details bla bla</p>
+        </div>
+    </div>
+    <div id="details">
+        details
+    </div>
+</body>
+<style>
+    body{
+        height: 100vw;
+        width: 100vw;
+    }
+    div, body{
+        margin:0;
+        padding:0;
+    }
+    p{
+        margin:0;
+        padding:0;
+    }
+    button{
+        position: fixed;
+    }
+    #banner{
+        
+    }
+    #bannerText{
+        
+    }
+</style>
+<script>
+    const allComps = [];
+    class Component{
+        constructor(n, w,h,l,t, i,d,c){
+            allComps.push(this);
+        
+            this.name = n;
+            this.color = c;
+            
+            this.panelComponent = new PanelComponent(this,n,i,d,c);
+            this.panelDetails = this.panelComponent.panelDetails;
+            
+            let mc = document.createElement('div');
+            mc.classList.add("mapComponent");
+            mc.style.width = w
+            mc.style.height = h;
+            mc.style.left = l;
+            mc.style.top = t;
+            document.getElementById("map").appendChild(mc);
+            mc.innerHTML = n;
+            mc.style.backgroundColor = c;
+            mc.addEventListener("mouseover", this.handleMouseover.bind(this));
+            mc.addEventListener("mouseout", this.handleMouseout.bind(this));
+            this.mapComponent = mc;
+            
+            this.clicked = false;
+        }
+        handleClick(){
+            allComps.forEach(this.unclick);
+            this.clicked = true
+            
+            this.panelDetails.open();
+            this.highlight(85,false);
+        }
+        unclick(value, index, array){
+            if(value.clicked){
+                value.clicked = false;
+                
+                value.panelDetails.close();
+                value.handleMouseout();
+            }
+        }
+        handleMouseover(){
+            if(this.clicked){
+            }
+            else{
+                this.highlight(70, true);
+            }
+        }
+        handleMouseout(){
+            if(this.clicked){
+            }
+            else{
+                this.unhighlight();
+            }
+        }
+        highlight(intensity, isReversed){
+            this.panelComponent.highlight(false);
+            if(isReversed){
+                this.mapComponent.style.opacity = (100-(intensity))+"%";
+            }
+            else{
+                this.mapComponent.style.opacity = (intensity/1.4)+"%";
+            }
+        }
+        unhighlight(){
+            this.highlight(100, true);
+            this.panelComponent.highlight(true);
+        }
+    }
+    class PanelComponent{
+        constructor(t,n,i,d,c){
+            this.name = n;
+            this.color = c;
+        
+            let pc = document.createElement('div');
+            pc.classList.add("panelComponent");
+            document.getElementById("panel").appendChild(pc);
+            let nameHTML = document.createElement('p');
+            nameHTML.innerHTML = n;
+            pc.appendChild(nameHTML);
+            pc.addEventListener("mouseover", t.handleMouseover.bind(t));
+            pc.addEventListener("mouseout", t.handleMouseout.bind(t));
+            pc.addEventListener("click", t.handleClick.bind(t));
+            this.htmlComponent = pc;
+            
+            this.panelDetails = new PanelDetails(this,d,i,c);
+        }
+        highlight(isReversed){
+            if(isReversed){
+            this.htmlComponent.style.backgroundColor = "";
+            }
+            else{
+            this.htmlComponent.style.backgroundColor = this.color;
+            }
+        }
+    }
+    class PanelDetails{
+        constructor(pc,d,i,c){
+            this.disabled = false; 
+            
+            let pd = document.createElement('div');
+            pd.classList.add("panelDetails");
+            pc.htmlComponent.appendChild(pd);
+            this.htmlComponent = pd;
+            
+            let img = document.createElement('img');
+            img.src = i;
+            img.alt = pc.name;
+            this.htmlComponent.appendChild(img);
+            
+            let t = document.createElement('p');
+            t.innerHTML = d;
+            this.htmlComponent.appendChild(t);
+            
+            let l = document.createElement('a');
+            l.href = pc.name+'.html';
+            l.textContent = 'See Details [>]';
+            this.htmlComponent.appendChild(l);
+        }
+        open(){
+            if(this.disabled){}else{
+                this.htmlComponent.style.display = "block";
+            }
+        }
+        close(){
+            this.htmlComponent.style.display = "none";
+        }
+    }
+    var title = new Component("Title",0,0,0,0);
+    //title.panelDetails.disabled = true;
+    title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
+    title.handleClick();
+    var brd = new Component("breindel", "50px", "150px", "50%", "50%", "", "This is breindel yes", "#8f00ff");
+    var sam = new Component("samuel", "10px", "10px", "0px", "20px", "", "smol", "#40ff8c");
+    var ghe = new Component("gherson", "100px","60px", "10%", "10%", "", "hrm chem bio", "#ff4040");
+</script>
+
+</html>
