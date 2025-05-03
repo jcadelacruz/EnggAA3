@@ -13,6 +13,10 @@
     <div id="parent">
         <div id="left">
             <div id="map">map</div>
+            <div id="zoomBtns">
+              <button id="zoomOut">-</button>
+              <button id="zoomIn">+</button>
+            </div>
         </div>
         <div id="panel">
             panel
@@ -23,6 +27,7 @@
     body{
         height: 100vw;
         width: 100vw;
+        overflow: hidden;
     }
     div, body{
         margin:0;
@@ -43,14 +48,32 @@
         width: 65vw;
         height: 100vh;
         background-color: lightgray;
+        overflow-x: scroll;
+        overflow-y: scroll;
+        position: relative;
+        
+        display: flex;
+        justify-content: center;
+    }
+    #zoomBtns{
+        position: fixed;
+        right: 35vw;
+        bottom: 5px;
+    }
+    #zoomBtns button{
+        width: 26px;
+        height: 26px;
     }
     #map{
         width: 65vw;
         height: 100vh;
         background-color: white;
+        
         position: relative;
+        transform-origin: 0 0;
+        
         background-image: url('https://media.discordapp.net/attachments/1084463643799855114/1368140858217463818/4AA2_SiteDevelopmentPlan_ENGGW-03_2.png?ex=681723f7&is=6815d277&hm=03e0608aac72ad97471603d7c56f355d2e3c80f89a5e9d9f116e65503ff5a72a&=&format=webp&quality=lossless&width=1437&height=1016');
-        background-size: 65vw 50.227vw;
+        background-size: 100% 100%;
         background-repeat: no-repeat;
     }
     .mapComponent{
@@ -89,21 +112,37 @@
     }
 </style>
 <script>
-    const allComps = [], leftW = 65, mapW = 50, mapH = mapW*8.5/11;
+    const allComps = [], leftW = 65, minMapW = 65;
+    let mapW = 80;
     
-    function setMapSize(w, h){
+    function setMapSize(w){
+        h = w*8.5/11;
         const map = document.getElementById('map');
         //set Size
-        map.style.backgroundSize = w+"vw "+h+"vw";
         map.style.height = h+"vw";
         map.style.width = w+"vw";
         //set margin
-        const mapHInPixels = (mapH / 100) * window.innerWidth; // Convert vw to pixels
+        const mapHInPixels = (h / 100) * window.innerWidth; // Convert vw to pixels
         const leftH = (window.innerHeight - mapHInPixels) / 2; // Calculate margin in pixels
-        const lw = (leftW - mapW) / 2;
-        map.style.margin = `${leftH}px ${lw}vw`; // Set margin
+        const lw = (leftW - w) / 2;
+        //map.style.margin = `${leftH}px ${lw}vw`; // Set margin
     }
-    setMapSize(mapW,mapH);
+    setMapSize(mapW);
+    let scale = 1;
+    function scaleMap(s){
+        const map = document.getElementById('map');
+        map.style.transform = "scale("+s+")";
+    }
+    document.getElementById('zoomIn').addEventListener('click', function() {
+        scale += 0.1;
+        scaleMap(scale);
+    });
+    document.getElementById('zoomOut').addEventListener('click', function() {
+        scale -= 0.1;
+        if (scale < 1) scale = 1;
+        scaleMap(scale);
+    });
+    
     class Component{
         constructor(n, w,h,l,t, i,d,c){
             allComps.push(this);
