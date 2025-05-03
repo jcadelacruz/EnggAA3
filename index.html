@@ -186,6 +186,7 @@
             mc.style.backgroundColor = c;
             mc.addEventListener("mouseover", this.handleMouseover.bind(this));
             mc.addEventListener("mouseout", this.handleMouseout.bind(this));
+            mc.addEventListener("click", this.handleClick.bind(this));
             this.mapComponent = mc;
             
             this.clicked = false;
@@ -299,9 +300,9 @@
     var title = new Component("Title","0%","0%","0%","0%");
     //title.panelDetails.disabled = true;
     title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
-    var brd = new Component("breindel", "5%" , "15%", "50%", "50%", "", "This is breindel yes", "#8f00ff");
-    var sam = new Component("samuel"  , "2%" , "2%" , "79%", "79%", "", "smol", "#40ff8c");
-    var ghe = new Component("gherson" , "10%", "6%" , "10%", "10%", "", "hrm chem bio", "#ff4040");
+    var brd = new Component("DORM"    , "27%", "22%", "40%", "10%", "", "This is breindel yes", "#8f00ff");
+    var sam = new Component("CAF"     , "20%", "16%", "54%", "59%", "", "smol", "#40ff8c");
+    var ghe = new Component("GYM"     , "30%", "23%", "4%" , "42%", "", "hrm chem bio", "#ff4040");
     title.handleClick();
     title.disabled = true;
     
