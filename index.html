@@ -48,18 +48,20 @@
     #tool{
         position: fixed;
         right: 0;
-        top: 0;
+        bottom: 0;
         margin: 0;padding: 0;
         
         background-color: green;
-        width: 90px;
-        height: 100px;
+        width: 35vw;
+        height: 30vw;
         
         z-index: 2;
         
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        
+        font-size: 17px;
     }
     #tool div{
         display: flex;
@@ -67,16 +69,15 @@
         justify-content: space-between;
     }
     #dplus, #dmin{
-        height: 12px;
+        height: 5vw;
     }
     #tool button{
         margin: 0; padding: 0;
-        height: 18px;
-        width: 18px;
-        font-size: 8px;
+        height: 7vw;
+        width: 7vw;
     }
     #toCopy{
-        height: 40px;
+        height: 55px;
     }
 
     body{
@@ -167,6 +168,29 @@
     }
 </style>
 <script>
+    let degreeOfTool = 1, mult = 10;
+    document.getElementById('dplus').addEventListener('click', function(){
+        degreeOfTool++;
+        mult = 10*degreeOfTool;
+        document.getElementById('degree').innerHTML = degreeOfTool;
+    });
+    document.getElementById('dmin').addEventListener('click', function(){
+        degreeOfTool--;
+        mult = 10*degreeOfTool;
+        document.getElementById('degree').innerHTML = degreeOfTool;
+    });
+    function updateTool(comp){
+        document.getElementById('name').innerHTML = comp.name;
+        document.getElementById('toCopy').innerHTML = comp.width+" "+comp.height" "+comp.left" "+comp.top" "+comp.rotate;
+    }
+    document.getElementById('ch1').addEventListener('click', function(){
+        const x = parseInt(clicked.mapComponent.style.width.slice(0,-1));
+        clicked.mapComponent.style.width = (x+mult)+"%";
+        clicked.width = x+mult;
+        updateTool(clicked);
+    });
+    
+    
     const allComps = [], leftW = 65, minMapW = 65;
     const mapW = 65;
     
@@ -207,8 +231,8 @@
     }
     function setScrollTo(comp){
         const left = document.getElementById('left');
-        const l = parseInt(comp.left.slice(0,-1)) + parseInt(comp.width.slice(0,-1))/2;
-        const t = parseInt(comp.top.slice(0,-1)) + parseInt(comp.height.slice(0,-1))/2;
+        const l = (comp.left) + (comp.width)/2;
+        const t = (comp.top) + (comp.height)/2;
         const x = window.innerWidth*(mapW/100)*((scale*(l/100)) - (1/2));
         const y = window.innerWidth*(mapW/100)*(scale*(8.5/11)*(t/100)) - (window.innerHeight/2);
         left.scrollTo(x,y);
@@ -216,7 +240,7 @@
     
     let clicked;
     class Component{
-        constructor(n, w,h,l,t, i,d,c){
+        constructor(n, w,h,l,t,r, i,d,c){
             allComps.push(this);
         
             this.name = n;
@@ -231,10 +255,12 @@
             mc.style.height = h;
             mc.style.left = l;
             mc.style.top = t;
-            this.width = w;
-            this.height = h;
-            this.left = l;
-            this.top = t;
+            mc.style.transform = "rotate("+r+"deg)";
+            this.width = parseInt(w.slice(0,-1));
+            this.height = parseInt(h.slice(0,-1));
+            this.left = parseInt(l.slice(0,-1));
+            this.top = parseInt(t.slice(0,-1));
+            this.rotate = r;
             document.getElementById("map").appendChild(mc);
             mc.innerHTML = n;
             mc.style.backgroundColor = c;
