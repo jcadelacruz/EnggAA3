@@ -58,8 +58,8 @@
     }
     #zoomBtns{
         position: fixed;
-        right: 35vw;
-        bottom: 5px;
+        right: 35.8vw;
+        bottom: 0.8vh;
     }
     #zoomBtns button{
         width: 26px;
@@ -114,7 +114,7 @@
 </style>
 <script>
     const allComps = [], leftW = 65, minMapW = 65;
-    let mapW = 55;
+    const mapW = 65;
     
     function setMapSize(w){
         h = w*8.5/11;
@@ -136,24 +136,31 @@
     }
     document.getElementById('zoomReset').addEventListener('click', function() {
         scale = 1;
-        scaleMap(scale);
+        zoom();
     });
     document.getElementById('zoomIn').addEventListener('click', function() {
         scale += 0.1;
-        scaleMap(scale);
+        zoom();
     });
     document.getElementById('zoomOut').addEventListener('click', function() {
         scale -= 0.1;
+        zoom();
+    });
+    function zoom(){
         if (scale < 1) scale = 1;
         scaleMap(scale);
-    });
-    function setMapTransformOrigin(comp){
-        const map = document.getElementById('map');
-        const x = ((parseInt(comp.width.slice(0,-1))/2)+ parseInt(comp.left.slice(0,-1)));
-        const y = ((parseInt(comp.height.slice(0,-1))/2)+parseInt(comp.top.slice(0,-1)));
-        map.style.transformOrigin = x+"% "+y+"%";
+        setScrollTo(clicked);
+    }
+    function setScrollTo(comp){
+        const left = document.getElementById('left');
+        const l = parseInt(comp.left.slice(0,-1)) + parseInt(comp.width.slice(0,-1))/2;
+        const t = parseInt(comp.top.slice(0,-1)) + parseInt(comp.height.slice(0,-1))/2;
+        const x = window.innerWidth*(mapW/100)*((scale*(l/100)) - (1/2));
+        const y = window.innerWidth*(mapW/100)*(scale*(8.5/11)*(t/100)) - (window.innerHeight/2);
+        left.scrollTo(x,y);
     }
     
+    let clicked;
     class Component{
         constructor(n, w,h,l,t, i,d,c){
             allComps.push(this);
@@ -186,10 +193,13 @@
         handleClick(){
             allComps.forEach(this.unclick);
             this.clicked = true
+            clicked = this;
             
             this.panelDetails.open();
             this.highlight(85,false);
-            setMapTransformOrigin(this);
+            if(!this.disabled){
+                setScrollTo(this);
+            }
         }
         unclick(value, index, array){
             if(value.clicked){
@@ -286,13 +296,14 @@
             this.htmlComponent.style.display = "none";
         }
     }
-    var title = new Component("Title",0,0,0,0);
+    var title = new Component("Title","0%","0%","0%","0%");
     //title.panelDetails.disabled = true;
     title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
     var brd = new Component("breindel", "5%" , "15%", "50%", "50%", "", "This is breindel yes", "#8f00ff");
-    var sam = new Component("samuel"  , "1%" , "1%" , "0%" , "2%" , "", "smol", "#40ff8c");
+    var sam = new Component("samuel"  , "2%" , "2%" , "79%", "79%", "", "smol", "#40ff8c");
     var ghe = new Component("gherson" , "10%", "6%" , "10%", "10%", "", "hrm chem bio", "#ff4040");
     title.handleClick();
+    title.disabled = true;
     
 </script>
 
