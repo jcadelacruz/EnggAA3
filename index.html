@@ -10,6 +10,26 @@
 </head>
 
 <body>
+    <div id="tool">
+        <div>
+            <p id="name">name</p>
+            <button id="dplus">^</button>
+        </div>
+        <div id="magnitude">
+            <button id="mplus">+</button>
+            <button id="mmin">-</button>
+            <p>[  <span id="degree">1</span>]</p>
+            <button id="dmin">v</button>
+        </div>
+        <div id="choose">
+            <button id="ch1">W</button>
+            <button id="ch2">H</button>
+            <button id="ch3">L</button>
+            <button id="ch4">T</button>
+            <button id="ch5">r</button>
+        </div>
+        <p id="toCopy">copy</p>
+    </div>
     <div id="parent">
         <div id="left">
             <div id="map">map</div>
@@ -25,6 +45,40 @@
     </div>
 </body>
 <style>
+    #tool{
+        position: fixed;
+        right: 0;
+        top: 0;
+        margin: 0;padding: 0;
+        
+        background-color: green;
+        width: 90px;
+        height: 100px;
+        
+        z-index: 2;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    #tool div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    #dplus, #dmin{
+        height: 12px;
+    }
+    #tool button{
+        margin: 0; padding: 0;
+        height: 18px;
+        width: 18px;
+        font-size: 8px;
+    }
+    #toCopy{
+        height: 40px;
+    }
+
     body{
         height: 100vw;
         width: 100vw;
