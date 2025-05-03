@@ -11,7 +11,9 @@
 
 <body>
     <div id="parent">
-        <div id="map">map</div>
+        <div id="left">
+            <div id="map">map</div>
+        </div>
         <div id="panel">
             panel
         </div>
@@ -37,9 +39,15 @@
         height: 100vh;
     }
     
+    #left{
+        width: 65vw;
+        height: 100vh;
+        background-color: lightgray;
+    }
     #map{
         width: 65vw;
-        background-color: lightgray;
+        height: 100vh;
+        background-color: white;
         position: relative;
         background-image: url('https://media.discordapp.net/attachments/1084463643799855114/1368140858217463818/4AA2_SiteDevelopmentPlan_ENGGW-03_2.png?ex=681723f7&is=6815d277&hm=03e0608aac72ad97471603d7c56f355d2e3c80f89a5e9d9f116e65503ff5a72a&=&format=webp&quality=lossless&width=1437&height=1016');
         background-size: 65vw 50.227vw;
@@ -81,7 +89,21 @@
     }
 </style>
 <script>
-    const allComps = [];
+    const allComps = [], leftW = 65, mapW = 50, mapH = mapW*8.5/11;
+    
+    function setMapSize(w, h){
+        const map = document.getElementById('map');
+        //set Size
+        map.style.backgroundSize = w+"vw "+h+"vw";
+        map.style.height = h+"vw";
+        map.style.width = w+"vw";
+        //set margin
+        const mapHInPixels = (mapH / 100) * window.innerWidth; // Convert vw to pixels
+        const leftH = (window.innerHeight - mapHInPixels) / 2; // Calculate margin in pixels
+        const lw = (leftW - mapW) / 2;
+        map.style.margin = `${leftH}px ${lw}vw`; // Set margin
+    }
+    setMapSize(mapW,mapH);
     class Component{
         constructor(n, w,h,l,t, i,d,c){
             allComps.push(this);
