@@ -128,7 +128,7 @@
         position: relative;
         transform-origin: 0 0;
         
-        background-image: url('https://media.discordapp.net/attachments/1084463643799855114/1368140858217463818/4AA2_SiteDevelopmentPlan_ENGGW-03_2.png?ex=681723f7&is=6815d277&hm=03e0608aac72ad97471603d7c56f355d2e3c80f89a5e9d9f116e65503ff5a72a&=&format=webp&quality=lossless&width=1437&height=1016');
+        background-image: url('https://media.discordapp.net/attachments/1293426709596733560/1368597915559530557/4AA2_SiteDevelopmentPlan_ENGGW-03_3.png?ex=6818cda2&is=68177c22&hm=8035b33176383dc887b9573076bd7f2797d05b7891a1845cdefb472da1024fbf&=&format=webp&quality=lossless&width=1437&height=1016');
         background-size: 100% 100%;
         background-repeat: no-repeat;
     }
@@ -312,7 +312,7 @@
             this.top = parseInt(t.slice(0,-1));
             this.rotate = parseInt(r);
             document.getElementById("map").appendChild(mc);
-            mc.innerHTML = n;
+            //mc.innerHTML = n;
             mc.style.backgroundColor = c;
             mc.addEventListener("mouseover", this.handleMouseover.bind(this));
             mc.addEventListener("mouseout", this.handleMouseout.bind(this));
@@ -457,14 +457,40 @@
     13.7,0,
     13.7,8.2,
     7.3,8.2,
-    7.3,15.3,
-    0,15.3
+    7.3,15.4,
+    0,15.4
     ];
     dorms.mapComponent.style.clipPath = createClipPath(vs);
     var rest = new Component("REST AREA" , "7.8%", "12.8%", "55.8%", "27%" , "0", "", "hrm chem bio", "pink");
+    var forest = new Component("FOREST" , "21%", "63%", "89%", "2%" , "0", "", "This is breindel yes", "#06402B");
+    vs = [
+    0,0.5,
+    6.85,0,
+    5.45,30.7,
+    0.2,30.5,
+    0.4,25,
+    2.8,25,
+    2.9,1.85,
+    0, 1.85
+    ];
+    forest.mapComponent.style.clipPath = createClipPath(vs);
     
-    var cafeteria = new Component("CAF"     , "20%", "16.5%", "53.63%", "58.5%", "0", "", "smol", "#40ff8c");
+    var cafeteria = new Component("CAFETERIA"     , "20%", "16.5%", "53.63%", "58.5%", "0", "", "smol", "#40ff8c");
     cafeteria.mapComponent.style.borderRadius = "30px";
+    var dropoff = new Component("DROPOFF", "20%", "16.5%", "48.75%", "77%", "0", "", "smol", "#8f9779");
+    vs = [
+    0,0,
+    5.5,0.2,
+    5.47,3.2,
+    11.5,3.38,
+    11.4,4.5,
+    0,4.15
+    ];
+    dropoff.mapComponent.style.clipPath = createClipPath(vs);
+    var flag = new Component("FLAGPOLE", "11.2%", "5.8%", "67.5%", "78.7%", "-1", "", "smol", "white");
+    flag.mapComponent.style.backgroundImage = "url('https://img.freepik.com/free-vector/illustration-philippinesflag_53876-27126.jpg')";
+    flag.mapComponent.style.backgroundRepeat = "no-repeat";
+    flag.mapComponent.style.backgroundSize = "100% 100%";
     
     var gym = new Component("GYM"     , "50%", "34%", "5%" , "47.86%", "11.6", "", "hrm chem bio", "#ff4040");
     vs = [
@@ -479,7 +505,7 @@
     var field = new Component("FIELD" , "27%", "20.3%", "16.15%" , "60.55%", "11", "", "hrm chem bio", "#ff2060");
     field.mapComponent.style.borderRadius = "25px";
     
-    var classrms = new Component("CLASSRMS" , "11%", "34%", "67.65%", "18%" , "0", "", "hrm chem bio", "periwinkle");
+    var classrms = new Component("CLASSRMS" , "11%", "34%", "67.65%", "18%" , "0", "", "hrm chem bio", "lightblue");
     var acadAttach = new Component("XACAD" , "26%", "20%", "67.6%", "5.5%" , "0", "", "hrm chem bio", "blue");
     vs = [
     0,0,
@@ -490,7 +516,7 @@
     0,6.2
     ];
     acadAttach.mapComponent.style.clipPath = createClipPath(vs);
-    var labs = new Component("LABORATORIES" , "10%", "27.5%", "83.5%", "24.5%" , "0", "", "hrm chem bio", "royalblue");
+    var labs = new Component("LABORATORIES" , "10%", "27.5%", "83.4%", "24.5%" , "0", "", "hrm chem bio", "royalblue");
     var pond = new Component("POND" , "3.7%", "9%", "79.3%", "33%" , "0", "", "hrm chem bio", "orange");
     var garden = new Component("GARDEN" , "5.1%", "4.2%", "73.8%", "52%" , "0", "", "hrm chem bio", "yellow");
     
@@ -498,8 +524,8 @@
     title.disabled = true;
     
     //testing
-    cafeteria.handleClick();
-    scale = 2.8;
+    forest.handleClick();
+    scale = 1.5;
     zoom();
 </script>
 
