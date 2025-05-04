@@ -428,15 +428,79 @@
             this.htmlComponent.style.display = "none";
         }
     }
+    
+    function createClipPath(vs){
+        let x = "path('";
+    	vs.forEach((v, index) => {
+          let x = v;
+          console.log(index + ': ' + x + ' -> ' + v);
+      });
+
+      vs.forEach((v, index) => {
+          //convert to window width
+          vs[index] = v*window.innerWidth/100;
+          v = vs[index];
+          //add to string x
+          if(index==0){ x+="M "+v;
+          }else{ x+=" "+v;}
+      });
+      x+=" Z')";
+      return x;
+    }
+    
     var title = new Component("Title","0%","0%","0%","0%");
     //title.panelDetails.disabled = true;
     title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
-    var brd = new Component("DORM"    , "21%", "17%", "43%", "8%" , "0", "", "This is breindel yes", "#8f00ff");
-    var sam = new Component("CAF"     , "19.5%", "16.5%", "54%", "58.5%", "0", "", "smol", "#40ff8c");
-    var ghe = new Component("GYM"     , "35%", "34%", "12%" , "48%", "11", "", "hrm chem bio", "#ff4040");
+    var dorms = new Component("DORM"    , "21.5%", "37%", "43%", "8.5%" , "0", "", "This is breindel yes", "#8f00ff");
+    let vs = [
+    0,0,
+    13.7,0,
+    13.7,8.2,
+    7.3,8.2,
+    7.3,15.3,
+    0,15.3
+    ];
+    dorms.mapComponent.style.clipPath = createClipPath(vs);
+    var rest = new Component("REST AREA" , "7.8%", "12.8%", "55.8%", "27%" , "0", "", "hrm chem bio", "pink");
+    
+    var cafeteria = new Component("CAF"     , "20%", "16.5%", "53.63%", "58.5%", "0", "", "smol", "#40ff8c");
+    cafeteria.mapComponent.style.borderRadius = "30px";
+    
+    var gym = new Component("GYM"     , "50%", "34%", "5%" , "47.86%", "11.6", "", "hrm chem bio", "#ff4040");
+    vs = [
+    4,0,
+    26.65,0,
+    26.65,5.3,
+    6.7,5.3,
+    4.4,14.7,
+    0.7,13.7
+    ];
+    gym.mapComponent.style.clipPath = createClipPath(vs);
+    var field = new Component("FIELD" , "27%", "20.3%", "16.15%" , "60.55%", "11", "", "hrm chem bio", "#ff2060");
+    field.mapComponent.style.borderRadius = "25px";
+    
+    var classrms = new Component("CLASSRMS" , "11%", "34%", "67.65%", "18%" , "0", "", "hrm chem bio", "periwinkle");
+    var acadAttach = new Component("XACAD" , "26%", "20%", "67.6%", "5.5%" , "0", "", "hrm chem bio", "blue");
+    vs = [
+    0,0,
+    16.7,0,
+    16.7,9.62,
+    7.25,9.62,
+    7.25,6.2,
+    0,6.2
+    ];
+    acadAttach.mapComponent.style.clipPath = createClipPath(vs);
+    var labs = new Component("LABORATORIES" , "10%", "27.5%", "83.5%", "24.5%" , "0", "", "hrm chem bio", "royalblue");
+    var pond = new Component("POND" , "3.7%", "9%", "79.3%", "33%" , "0", "", "hrm chem bio", "orange");
+    var garden = new Component("GARDEN" , "5.1%", "4.2%", "73.8%", "52%" , "0", "", "hrm chem bio", "yellow");
+    
     title.handleClick();
     title.disabled = true;
     
+    //testing
+    cafeteria.handleClick();
+    scale = 2.8;
+    zoom();
 </script>
 
 </html>
