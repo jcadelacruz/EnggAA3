@@ -55,7 +55,7 @@
         width: 35vw;
         height: 30vw;
         
-        z-index: 2;
+        z-index: -2;
         
         display: flex;
         flex-direction: column;
@@ -461,6 +461,7 @@
     0,15.4
     ];
     dorms.mapComponent.style.clipPath = createClipPath(vs);
+    var kala = new Component("KALA LANE", "4%", "17%", "61.3%", "40.5%", "0", "", "smol", "#FFFFC5");
     var rest = new Component("REST AREA" , "7.8%", "12.8%", "55.8%", "27%" , "0", "", "hrm chem bio", "pink");
     var forest = new Component("FOREST" , "21%", "63%", "89%", "2%" , "0", "", "This is breindel yes", "#06402B");
     vs = [
@@ -477,6 +478,8 @@
     
     var cafeteria = new Component("CAFETERIA"     , "20%", "16.5%", "53.63%", "58.5%", "0", "", "smol", "#40ff8c");
     cafeteria.mapComponent.style.borderRadius = "30px";
+    var grandstand = new Component("GRANDSTAND", "4.4%", "3.8%", "51.8%", "52.3%", "0", "", "smol", "#C04000");
+    var admin = new Component("ADMIN"     , "12.7%", "10.4%", "84.7%", "62.8%", "3", "", "smol", "black");
     var dropoff = new Component("DROPOFF", "20%", "16.5%", "48.75%", "77%", "0", "", "smol", "#8f9779");
     vs = [
     0,0,
@@ -491,6 +494,7 @@
     flag.mapComponent.style.backgroundImage = "url('https://img.freepik.com/free-vector/illustration-philippinesflag_53876-27126.jpg')";
     flag.mapComponent.style.backgroundRepeat = "no-repeat";
     flag.mapComponent.style.backgroundSize = "100% 100%";
+    var wait = new Component("WAIT", "4.8%", "3.6%", "70.25%", "88.5%", "0", "", "smol", "#722F37");
     
     var gym = new Component("GYM"     , "50%", "34%", "5%" , "47.86%", "11.6", "", "hrm chem bio", "#ff4040");
     vs = [
@@ -524,9 +528,9 @@
     title.disabled = true;
     
     //testing
-    forest.handleClick();
-    scale = 1.5;
-    zoom();
+    //kala.handleClick();
+    //scale = 2.5;
+    //zoom();
 </script>
 
 </html>
