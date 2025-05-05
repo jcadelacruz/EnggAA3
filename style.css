@@ -1,0 +1,130 @@
+#tool{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 0;padding: 0;
+    
+    background-color: green;
+    width: 35vw;
+    height: 30vw;
+    
+    z-index: -2;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    font-size: 17px;
+}
+#tool div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#dplus, #dmin{
+    height: 5vw;
+}
+#tool button{
+    margin: 0; padding: 0;
+    height: 7vw;
+    width: 7vw;
+}
+#toCopy{
+    height: 55px;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+div, body{
+    margin:0;
+    padding:0;
+}
+p{
+    margin:0;
+    padding:0;
+}
+#parent{
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+#left{
+    width: 65vw;
+    height: 100vh;
+    background-color: white;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: relative;
+    /* scroll-behavior: smooth; */
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+#left.grab{
+    cursor: grabbing;
+}
+
+#zoomBtns{
+    position: fixed;
+    right: 35.8vw;
+    bottom: 0.8vh;
+}
+#zoomBtns button{
+    width: 26px;
+    height: 26px;
+}
+#map{
+    /* margin: 2.5vw; */
+    width: 65vw;
+    /* height: 50.227vw; */
+    aspect-ratio: 8.5/11;
+    background-color: white;
+    
+    position: relative;
+    transform-origin: 0 0;
+    
+    /* transition: transform 0.2s; */
+    background-image: url('https://media.discordapp.net/attachments/1293426709596733560/1368597915559530557/4AA2_SiteDevelopmentPlan_ENGGW-03_3.png?ex=6818cda2&is=68177c22&hm=8035b33176383dc887b9573076bd7f2797d05b7891a1845cdefb472da1024fbf&=&format=webp&quality=lossless&width=1437&height=1016');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.mapComponent{
+    overflow: hidden;
+    opacity: 0%;
+    background-color: white;
+    position: absolute;
+}
+
+#panel{
+    width: 35vw;
+    background-color: red;
+    overflow-y: scroll;
+}
+.panelComponent{
+    background-color: pink;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 50%);
+    border-width: 0px 0px 1px 3px;
+}
+.panelDetails{
+    display: none;
+    height: 18vh;
+    position: relative;
+    font-size: 65%;
+}
+.panelDetails img{
+    height: 30px;
+    width: 40px;
+}
+.panelDetails a{
+    position: absolute;
+    right: 0;
+    color: darkgray;
+    opacity: 80%;
+    text-decoration: none;
+}
