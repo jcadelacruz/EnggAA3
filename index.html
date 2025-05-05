@@ -103,11 +103,11 @@
     #left{
         width: 65vw;
         height: 100vh;
-        background-color: lightgray;
-        overflow-x: scroll;
-        overflow-y: scroll;
+        background-color: white;
+        overflow-x: hidden;
+        overflow-y: hidden;
         position: relative;
-        scroll-behavior: smooth;
+        /* scroll-behavior: smooth; */
         display: flex;
         justify-content: center;
     }
@@ -121,8 +121,8 @@
         height: 26px;
     }
     #map{
-        margin: 2.5vw;
-        width: 60vw;
+        /* margin: 2.5vw; */
+        width: 65vw;
         /* height: 50.227vw; */
         aspect-ratio: 8.5/11;
         background-color: white;
@@ -267,37 +267,54 @@
     // })
     
     let scale = 1;
-    function scaleMap(s){
-        const map = document.getElementById('map');
-        map.style.transform = "scale("+s+")";
-        console.log("Scaling: " + s);
+    let targetScale = 1;
+    let targetX = 0;
+    let targetY = 0;
+    let translateX= 0;
+    let translateY = 0;
+    const animationSpeed = 0.1;
+
+    function animate(){
+        scale += (targetScale - scale) * animationSpeed;
+        translateX += (targetX - translateX) * animationSpeed;
+        translateY += (targetY - translateY) * animationSpeed;
+        
+        map.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+        requestAnimationFrame(animate);
     }
+    animate();
+
     document.getElementById('zoomReset').addEventListener('click', function() {
-        scale = 1;
+        targetScale = 1;
+        title.handleClick();
         zoom();
     });
     document.getElementById('zoomIn').addEventListener('click', function() {
-        scale += 0.1;
+        targetScale += 0.1;
         zoom();
     });
     document.getElementById('zoomOut').addEventListener('click', function() {
-        scale -= 0.1;
+        targetScale = Math.max(targetScale - 0.1, 1);
         zoom();
     });
+
+
     function zoom(){
-        if (scale < 1) scale = 1;
-        scaleMap(scale);
-        setScrollTo(clicked);
-    }
-    function setScrollTo(comp){
+        const map = document.getElementById('map');
+        console.log("Scaling: " + scale);
+
         const left = document.getElementById('left');
-        const l = (comp.left) + (comp.width)/2;
-        const t = (comp.top) + (comp.height)/2;
-        const x = window.innerWidth*(mapW/100)*((scale*(l/100)) - (1/2));
-        const y = window.innerWidth*(mapW/100)*(scale*(8.5/11)*(t/100)) - (window.innerHeight/2);
-        left.scrollTo(x,y);
-        console.log("Set Scroll to: ", x, y);
-        // scaleMap(comp.zoom);
+        const l = (clicked.left) + (clicked.width)/2;
+        const t = (clicked.top) + (clicked.height)/2;
+        const x = -left.clientWidth * (l/100) * targetScale + left.clientWidth * 0.5;
+        const y = -left.clientWidth*(8.5/11) * (t/100) * targetScale + left.clientWidth*(8.5/11) * 0.5; 
+        
+        targetX = x;
+        targetY = y;
+
+        // map.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+        console.log(map.style.transform);
     }
     
     let clicked;
@@ -342,7 +359,8 @@
             this.panelDetails.open();
             this.highlight(85,false);
             if(!this.disabled){
-                scale = this.zoom;
+                targetScale = this.zoom;
+                console.log(this, targetScale);
                 zoom();
             }
             updateTool(this);
@@ -461,10 +479,10 @@
       return x;
     }
     
-    var title = new Component("Title","0%","0%","0%","0%", 1);
+    var title = new Component("Title","0%","0%","50%","50%", "0", "", "", "", 1);
     //title.panelDetails.disabled = true;
     title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
-    var dorms = new Component("DORM"    , "21.5%", "37%", "43%", "8.5%" , "0", "", "This is breindel yes", "#8f00ff");
+    var dorms = new Component("DORM", "21.5%", "37%", "43%", "8.5%" , "0", "", "This is breindel yes", "#8f00ff");
     let vs = [
     0,0,
     13.7,0,
@@ -476,7 +494,7 @@
     dorms.mapComponent.style.clipPath = createClipPath(vs);
     var kala = new Component("KALA LANE", "4%", "17%", "61.3%", "40.5%", "0", "", "smol", "#FFFFC5");
     var rest = new Component("REST AREA" , "7.8%", "12.8%", "55.8%", "27%" , "0", "", "hrm chem bio", "pink");
-    var forest = new Component("FOREST" , "10.5%", "63%", "89%", "2%" , "0", "", "This is breindel yes", "#06402B");
+    var forest = new Component("FOREST" , "10.5%", "63%", "89%", "2%" , "0", "", "This is breindel yes", "#06402B", 1.5);
     vs = [
     0,0.5,
     6.85,0,
@@ -509,7 +527,7 @@
     flag.mapComponent.style.backgroundSize = "100% 100%";
     var wait = new Component("WAIT", "4.8%", "3.6%", "70.25%", "88.5%", "0", "", "smol", "#722F37");
     
-    var gym = new Component("GYM"     , "50%", "34%", "5%" , "47.86%", "11.6", "", "hrm chem bio", "#ff4040");
+    var gym = new Component("GYM"     , "50%", "34%", "5%" , "47.86%", "11.6", "", "hrm chem bio", "#ff4040", 1.7);
     vs = [
     4,0,
     26.65,0,
@@ -519,7 +537,7 @@
     0.7,13.7
     ];
     gym.mapComponent.style.clipPath = createClipPath(vs);
-    var field = new Component("FIELD" , "27%", "20.3%", "16.15%" , "60.55%", "12", "", "hrm chem bio", "#ff2060");
+    var field = new Component("FIELD" , "27%", "20.3%", "16.15%" , "60.55%", "12", "", "hrm chem bio", "#ff2060", 1.7);
     field.mapComponent.style.borderRadius = "2.5vw";
     
     var classrms = new Component("CLASSRMS" , "11%", "34%", "67.65%", "18%" , "0", "", "hrm chem bio", "lightblue");
