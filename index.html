@@ -107,7 +107,7 @@
         overflow-x: scroll;
         overflow-y: scroll;
         position: relative;
-        
+        scroll-behavior: smooth;
         display: flex;
         justify-content: center;
     }
@@ -121,13 +121,16 @@
         height: 26px;
     }
     #map{
-        width: 65vw;
-        height: 50.227vw;
+        margin: 2.5vw;
+        width: 60vw;
+        /* height: 50.227vw; */
+        aspect-ratio: 8.5/11;
         background-color: white;
         
         position: relative;
         transform-origin: 0 0;
         
+        /* transition: transform 0.2s; */
         background-image: url('https://media.discordapp.net/attachments/1293426709596733560/1368597915559530557/4AA2_SiteDevelopmentPlan_ENGGW-03_3.png?ex=6818cda2&is=68177c22&hm=8035b33176383dc887b9573076bd7f2797d05b7891a1845cdefb472da1024fbf&=&format=webp&quality=lossless&width=1437&height=1016');
         background-size: 100% 100%;
         background-repeat: no-repeat;
@@ -164,7 +167,7 @@
         position: absolute;
         right: 0;
         color: darkgray;
-        opacity; 80%;
+        opacity: 80%;
         text-decoration: none;
     }
 </style>
@@ -243,7 +246,7 @@
     
     
     const allComps = [], leftW = 65, minMapW = 65;
-    const mapW = 65;
+    const mapW = 60;
     
     function setMapSize(w){
         h = w*8.5/11;
@@ -258,10 +261,16 @@
         //map.style.margin = `${leftH}px ${lw}vw`; // Set margin
     }
     setMapSize(mapW);
+    
+    // window.addEventListener("resize", ()=>{
+    //     setMapSize(mapW);
+    // })
+    
     let scale = 1;
     function scaleMap(s){
         const map = document.getElementById('map');
         map.style.transform = "scale("+s+")";
+        console.log("Scaling: " + s);
     }
     document.getElementById('zoomReset').addEventListener('click', function() {
         scale = 1;
@@ -287,11 +296,13 @@
         const x = window.innerWidth*(mapW/100)*((scale*(l/100)) - (1/2));
         const y = window.innerWidth*(mapW/100)*(scale*(8.5/11)*(t/100)) - (window.innerHeight/2);
         left.scrollTo(x,y);
+        console.log("Set Scroll to: ", x, y);
+        // scaleMap(comp.zoom);
     }
     
     let clicked;
     class Component{
-        constructor(n, w,h,l,t,r, i,d,c){
+        constructor(n, w,h,l,t,r, i,d,c,z=2){
             allComps.push(this);
         
             this.name = n;
@@ -312,6 +323,7 @@
             this.left = parseInt(l.slice(0,-1));
             this.top = parseInt(t.slice(0,-1));
             this.rotate = parseInt(r);
+            this.zoom = z;
             document.getElementById("map").appendChild(mc);
             //mc.innerHTML = n;
             mc.style.backgroundColor = c;
@@ -330,7 +342,8 @@
             this.panelDetails.open();
             this.highlight(85,false);
             if(!this.disabled){
-                setScrollTo(this);
+                scale = this.zoom;
+                zoom();
             }
             updateTool(this);
         }
@@ -433,8 +446,7 @@
     function createClipPath(vs){
         let x = "path('";
     	vs.forEach((v, index) => {
-          let x = v;
-          console.log(index + ': ' + x + ' -> ' + v);
+          vs[index] = v*(60/65);
       });
 
       vs.forEach((v, index) => {
@@ -449,7 +461,7 @@
       return x;
     }
     
-    var title = new Component("Title","0%","0%","0%","0%");
+    var title = new Component("Title","0%","0%","0%","0%", 1);
     //title.panelDetails.disabled = true;
     title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
     var dorms = new Component("DORM"    , "21.5%", "37%", "43%", "8.5%" , "0", "", "This is breindel yes", "#8f00ff");
@@ -478,7 +490,7 @@
     forest.mapComponent.style.clipPath = createClipPath(vs);
     
     var cafeteria = new Component("CAFETERIA"     , "20%", "16.5%", "53.63%", "58.5%", "0", "", "smol", "#40ff8c");
-    cafeteria.mapComponent.style.borderRadius = "30px";
+    cafeteria.mapComponent.style.borderRadius = "100000px";
     var grandstand = new Component("GRANDSTAND", "4.4%", "3.8%", "51.8%", "52.3%", "0", "", "smol", "#C04000");
     var admin = new Component("ADMIN"     , "12.7%", "10.4%", "84.7%", "62.8%", "3", "", "smol", "black");
     var dropoff = new Component("DROPOFF", "20%", "16.5%", "48.75%", "77%", "0", "", "smol", "#8f9779");
@@ -507,8 +519,8 @@
     0.7,13.7
     ];
     gym.mapComponent.style.clipPath = createClipPath(vs);
-    var field = new Component("FIELD" , "27%", "20.3%", "16.15%" , "60.55%", "11", "", "hrm chem bio", "#ff2060");
-    field.mapComponent.style.borderRadius = "25px";
+    var field = new Component("FIELD" , "27%", "20.3%", "16.15%" , "60.55%", "12", "", "hrm chem bio", "#ff2060");
+    field.mapComponent.style.borderRadius = "2.5vw";
     
     var classrms = new Component("CLASSRMS" , "11%", "34%", "67.65%", "18%" , "0", "", "hrm chem bio", "lightblue");
     var acadAttach = new Component("XACAD" , "26%", "20%", "67.6%", "5.5%" , "0", "", "hrm chem bio", "blue");
