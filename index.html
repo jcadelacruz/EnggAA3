@@ -44,207 +44,9 @@
         </div>
     </div>
 </body>
-<style>
-    #tool{
-        position: fixed;
-        right: 0;
-        bottom: 0;
-        margin: 0;padding: 0;
-        
-        background-color: green;
-        width: 35vw;
-        height: 30vw;
-        
-        z-index: -2;
-        
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        
-        font-size: 17px;
-    }
-    #tool div{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    #dplus, #dmin{
-        height: 5vw;
-    }
-    #tool button{
-        margin: 0; padding: 0;
-        height: 7vw;
-        width: 7vw;
-    }
-    #toCopy{
-        height: 55px;
-    }
-
-    body{
-        height: 100vh;
-        width: 100vw;
-        overflow: hidden;
-    }
-    div, body{
-        margin:0;
-        padding:0;
-    }
-    p{
-        margin:0;
-        padding:0;
-    }
-    #parent{
-        width: 100vw;
-        display: flex;
-        flex-direction: row;
-        height: 100vh;
-    }
-    
-    #left{
-        width: 65vw;
-        height: 100vh;
-        background-color: white;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        position: relative;
-        /* scroll-behavior: smooth; */
-        display: flex;
-        justify-content: center;
-    }
-    #zoomBtns{
-        position: fixed;
-        right: 35.8vw;
-        bottom: 0.8vh;
-    }
-    #zoomBtns button{
-        width: 26px;
-        height: 26px;
-    }
-    #map{
-        /* margin: 2.5vw; */
-        width: 65vw;
-        /* height: 50.227vw; */
-        aspect-ratio: 8.5/11;
-        background-color: white;
-        
-        position: relative;
-        transform-origin: 0 0;
-        
-        /* transition: transform 0.2s; */
-        background-image: url('https://media.discordapp.net/attachments/1293426709596733560/1368597915559530557/4AA2_SiteDevelopmentPlan_ENGGW-03_3.png?ex=6818cda2&is=68177c22&hm=8035b33176383dc887b9573076bd7f2797d05b7891a1845cdefb472da1024fbf&=&format=webp&quality=lossless&width=1437&height=1016');
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-    }
-    .mapComponent{
-        overflow: hidden;
-        opacity: 0%;
-        background-color: white;
-        position: absolute;
-    }
-    
-    #panel{
-        width: 35vw;
-        background-color: red;
-        overflow-y: scroll;
-    }
-    .panelComponent{
-        background-color: pink;
-        border-style: solid;
-        border-color: rgba(0, 0, 0, 50%);
-        border-width: 0px 0px 1px 3px;
-    }
-    .panelDetails{
-        display: none;
-        height: 18vh;
-        position: relative;
-        font-size: 65%;
-    }
-    .panelDetails img{
-        height: 30px;
-        width: 40px;
-    }
-    .panelDetails a{
-        position: absolute;
-        right: 0;
-        color: darkgray;
-        opacity: 80%;
-        text-decoration: none;
-    }
-</style>
+<script src="components.js"></script>
+<script src="tools.js"></script>
 <script>
-    let degreeOfTool = 1, mult = 10, isPositive = true;
-    document.getElementById('dplus').addEventListener('click', function(){
-        degreeOfTool++;
-        mult = 10**degreeOfTool;
-        document.getElementById('degree').innerHTML = degreeOfTool;
-    });
-    document.getElementById('dmin').addEventListener('click', function(){
-        degreeOfTool--;
-        mult = 10**degreeOfTool;
-        document.getElementById('degree').innerHTML = degreeOfTool;
-    });
-    document.getElementById('mplus').addEventListener('click', function(){
-        isPositive = true;
-    });
-    document.getElementById('mmin').addEventListener('click', function(){
-        isPositive = false;
-    });
-    function updateTool(comp){
-        document.getElementById('name').innerHTML = comp.name;
-        document.getElementById('toCopy').innerHTML = comp.width+" "+comp.height+" "+comp.left+" "+comp.top+" "+comp.rotate;
-    }
-    document.getElementById('ch1').addEventListener('click', function(){
-        const x = parseInt(clicked.mapComponent.style.width.slice(0,-1));
-        let j=(mult*(-1));
-        if(isPositive){
-            j = mult;
-        }
-        clicked.mapComponent.style.width = (x+j)+"%";
-        clicked.width = x+j;
-        updateTool(clicked);
-    });
-    document.getElementById('ch2').addEventListener('click', function(){
-        const x = parseInt(clicked.mapComponent.style.height.slice(0,-1));
-        let j=(mult*(-1));
-        if(isPositive){
-            j = mult;
-        }
-        clicked.mapComponent.style.height = (x+j)+"%";
-        clicked.height = x+j;
-        updateTool(clicked);
-    });
-    document.getElementById('ch3').addEventListener('click', function(){
-        const x = parseInt(clicked.mapComponent.style.left.slice(0,-1));
-        let j=(mult*(-1));
-        if(isPositive){
-            j = mult;
-        }
-        clicked.mapComponent.style.left = (x+j)+"%";
-        clicked.left = x+j;
-        updateTool(clicked);
-    });
-    document.getElementById('ch4').addEventListener('click', function(){
-        const x = parseInt(clicked.mapComponent.style.top.slice(0,-1));
-        let j=(mult*(-1));
-        if(isPositive){
-            j = mult;
-        }
-        clicked.mapComponent.style.top = (x+j)+"%";
-        clicked.top = x+j;
-        updateTool(clicked);
-    });
-    document.getElementById('ch5').addEventListener('click', function(){
-        const x = clicked.rotate;
-        let j=(mult*(-1));
-        if(isPositive){
-            j = mult;
-        }
-        clicked.mapComponent.style.transform = "rotate("+(x+j)+"deg)";
-        clicked.rotate = x+j;
-        updateTool(clicked);
-    });
-    
-    
     const allComps = [], leftW = 65, minMapW = 65;
     const mapW = 60;
     
@@ -261,10 +63,6 @@
         //map.style.margin = `${leftH}px ${lw}vw`; // Set margin
     }
     setMapSize(mapW);
-    
-    // window.addEventListener("resize", ()=>{
-    //     setMapSize(mapW);
-    // })
     
     let scale = 1;
     let targetScale = 1;
@@ -287,7 +85,7 @@
 
     document.getElementById('zoomReset').addEventListener('click', function() {
         targetScale = 1;
-        title.handleClick();
+        window.components.title.handleClick();
         zoom();
     });
     document.getElementById('zoomIn').addEventListener('click', function() {
@@ -299,12 +97,23 @@
         zoom();
     });
 
+    const left = document.getElementById('left');
+    let dragging = false;
+    left.addEventListener("mousedown", ()=>{left.classList.add("grab")});
+    left.addEventListener("mouseup", ()=>{left.classList.remove("grab")});
+    left.addEventListener("mousemove", (e)=>{
+        if(!left.classList.contains("grab")) return;
+        translateX += e.movementX;
+        translateY += e.movementY;
+        targetX = translateX;
+        targetY = translateY;
+    });
 
+    
     function zoom(){
         const map = document.getElementById('map');
         console.log("Scaling: " + scale);
 
-        const left = document.getElementById('left');
         const l = (clicked.left) + (clicked.width)/2;
         const t = (clicked.top) + (clicked.height)/2;
         const x = -left.clientWidth * (l/100) * targetScale + left.clientWidth * 0.5;
@@ -316,252 +125,15 @@
         // map.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
         console.log(map.style.transform);
     }
-    
-    let clicked;
-    class Component{
-        constructor(n, w,h,l,t,r, i,d,c,z=2){
-            allComps.push(this);
-        
-            this.name = n;
-            this.color = c;
-            
-            this.panelComponent = new PanelComponent(this,n,i,d,c);
-            this.panelDetails = this.panelComponent.panelDetails;
-            
-            let mc = document.createElement('div');
-            mc.classList.add("mapComponent");
-            mc.style.width = w;
-            mc.style.height = h;
-            mc.style.left = l;
-            mc.style.top = t;
-            mc.style.transform = "rotate("+r+"deg)";
-            this.width = parseInt(w.slice(0,-1));
-            this.height = parseInt(h.slice(0,-1));
-            this.left = parseInt(l.slice(0,-1));
-            this.top = parseInt(t.slice(0,-1));
-            this.rotate = parseInt(r);
-            this.zoom = z;
-            document.getElementById("map").appendChild(mc);
-            //mc.innerHTML = n;
-            mc.style.backgroundColor = c;
-            mc.addEventListener("mouseover", this.handleMouseover.bind(this));
-            mc.addEventListener("mouseout", this.handleMouseout.bind(this));
-            mc.addEventListener("click", this.handleClick.bind(this));
-            this.mapComponent = mc;
-            
-            this.clicked = false;
-        }
-        handleClick(){
-            allComps.forEach(this.unclick);
-            this.clicked = true
-            clicked = this;
-            
-            this.panelDetails.open();
-            this.highlight(85,false);
-            if(!this.disabled){
-                targetScale = this.zoom;
-                console.log(this, targetScale);
-                zoom();
-            }
-            updateTool(this);
-        }
-        unclick(value, index, array){
-            if(value.clicked){
-                value.clicked = false;
-                
-                value.panelDetails.close();
-                value.handleMouseout();
-            }
-        }
-        handleMouseover(){
-            if(this.clicked){
-            }
-            else{
-                this.highlight(70, true);
-            }
-        }
-        handleMouseout(){
-            if(this.clicked){
-            }
-            else{
-                this.unhighlight();
-            }
-        }
-        highlight(intensity, isReversed){
-            this.panelComponent.highlight(false);
-            if(isReversed){
-                this.mapComponent.style.opacity = (100-(intensity))+"%";
-            }
-            else{
-                this.mapComponent.style.opacity = (intensity/1.4)+"%";
-            }
-        }
-        unhighlight(){
-            this.highlight(100, true);
-            this.panelComponent.highlight(true);
-        }
-    }
-    class PanelComponent{
-        constructor(t,n,i,d,c){
-            this.name = n;
-            this.color = c;
-        
-            let pc = document.createElement('div');
-            pc.classList.add("panelComponent");
-            document.getElementById("panel").appendChild(pc);
-            let nameHTML = document.createElement('p');
-            nameHTML.innerHTML = n;
-            pc.appendChild(nameHTML);
-            pc.addEventListener("mouseover", t.handleMouseover.bind(t));
-            pc.addEventListener("mouseout", t.handleMouseout.bind(t));
-            pc.addEventListener("click", t.handleClick.bind(t));
-            this.htmlComponent = pc;
-            
-            this.panelDetails = new PanelDetails(this,d,i,c);
-        }
-        highlight(isReversed){
-            if(isReversed){
-            this.htmlComponent.style.backgroundColor = "";
-            }
-            else{
-            this.htmlComponent.style.backgroundColor = this.color;
-            }
-        }
-    }
-    class PanelDetails{
-        constructor(pc,d,i,c){
-            this.disabled = false; 
-            
-            let pd = document.createElement('div');
-            pd.classList.add("panelDetails");
-            pc.htmlComponent.appendChild(pd);
-            this.htmlComponent = pd;
-            
-            let img = document.createElement('img');
-            img.src = i;
-            img.alt = pc.name;
-            this.htmlComponent.appendChild(img);
-            
-            let t = document.createElement('p');
-            t.innerHTML = d;
-            this.htmlComponent.appendChild(t);
-            
-            let l = document.createElement('a');
-            l.href = pc.name+'.html';
-            l.textContent = 'See Details [>]';
-            this.htmlComponent.appendChild(l);
-        }
-        open(){
-            if(this.disabled){}else{
-                this.htmlComponent.style.display = "block";
-            }
-        }
-        close(){
-            this.htmlComponent.style.display = "none";
-        }
-    }
-    
-    function createClipPath(vs){
-        let x = "path('";
-    	vs.forEach((v, index) => {
-          vs[index] = v*(60/65);
-      });
 
-      vs.forEach((v, index) => {
-          //convert to window width
-          vs[index] = v*window.innerWidth/100;
-          v = vs[index];
-          //add to string x
-          if(index==0){ x+="M "+v;
-          }else{ x+=" "+v;}
-      });
-      x+=" Z')";
-      return x;
-    }
+
     
-    var title = new Component("Title","0%","0%","50%","50%", "0", "", "", "", 1);
-    //title.panelDetails.disabled = true;
-    title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
-    var dorms = new Component("DORM", "21.5%", "37%", "43%", "8.5%" , "0", "", "This is breindel yes", "#8f00ff");
-    let vs = [
-    0,0,
-    13.7,0,
-    13.7,8.2,
-    7.3,8.2,
-    7.3,15.4,
-    0,15.4
-    ];
-    dorms.mapComponent.style.clipPath = createClipPath(vs);
-    var kala = new Component("KALA LANE", "4%", "17%", "61.3%", "40.5%", "0", "", "smol", "#FFFFC5");
-    var rest = new Component("REST AREA" , "7.8%", "12.8%", "55.8%", "27%" , "0", "", "hrm chem bio", "pink");
-    var forest = new Component("FOREST" , "10.5%", "63%", "89%", "2%" , "0", "", "This is breindel yes", "#06402B", 1.5);
-    vs = [
-    0,0.5,
-    6.85,0,
-    5.45,30.7,
-    0.2,30.5,
-    0.4,25,
-    2.8,25,
-    2.9,1.85,
-    0, 1.85
-    ];
-    forest.mapComponent.style.clipPath = createClipPath(vs);
+    //Initilizes components found in components.js
+    initComponents(window);
+
+    window.components.title.handleClick();
+    window.components.title.disabled = true;
     
-    var cafeteria = new Component("CAFETERIA"     , "20%", "16.5%", "53.63%", "58.5%", "0", "", "smol", "#40ff8c");
-    cafeteria.mapComponent.style.borderRadius = "100000px";
-    var grandstand = new Component("GRANDSTAND", "4.4%", "3.8%", "51.8%", "52.3%", "0", "", "smol", "#C04000");
-    var admin = new Component("ADMIN"     , "12.7%", "10.4%", "84.7%", "62.8%", "3", "", "smol", "black");
-    var dropoff = new Component("DROPOFF", "20%", "16.5%", "48.75%", "77%", "0", "", "smol", "#8f9779");
-    vs = [
-    0,0,
-    5.5,0.2,
-    5.47,3.2,
-    11.5,3.38,
-    11.4,4.5,
-    0,4.15
-    ];
-    dropoff.mapComponent.style.clipPath = createClipPath(vs);
-    var flag = new Component("FLAGPOLE", "11.2%", "5.8%", "67.5%", "78.7%", "-1", "", "smol", "white");
-    flag.mapComponent.style.backgroundImage = "url('https://img.freepik.com/free-vector/illustration-philippinesflag_53876-27126.jpg')";
-    flag.mapComponent.style.backgroundRepeat = "no-repeat";
-    flag.mapComponent.style.backgroundSize = "100% 100%";
-    var wait = new Component("WAIT", "4.8%", "3.6%", "70.25%", "88.5%", "0", "", "smol", "#722F37");
-    
-    var gym = new Component("GYM"     , "50%", "34%", "5%" , "47.86%", "11.6", "", "hrm chem bio", "#ff4040", 1.7);
-    vs = [
-    4,0,
-    26.65,0,
-    26.65,5.3,
-    6.7,5.3,
-    4.4,14.7,
-    0.7,13.7
-    ];
-    gym.mapComponent.style.clipPath = createClipPath(vs);
-    var field = new Component("FIELD" , "27%", "20.3%", "16.15%" , "60.55%", "12", "", "hrm chem bio", "#ff2060", 1.7);
-    field.mapComponent.style.borderRadius = "2.5vw";
-    
-    var classrms = new Component("CLASSRMS" , "11%", "34%", "67.65%", "18%" , "0", "", "hrm chem bio", "lightblue");
-    var acadAttach = new Component("XACAD" , "26%", "20%", "67.6%", "5.5%" , "0", "", "hrm chem bio", "blue");
-    vs = [
-    0,0,
-    16.7,0,
-    16.7,9.62,
-    7.25,9.62,
-    7.25,6.2,
-    0,6.2
-    ];
-    acadAttach.mapComponent.style.clipPath = createClipPath(vs);
-    var labs = new Component("LABORATORIES" , "10%", "27.5%", "83.4%", "24.5%" , "0", "", "hrm chem bio", "royalblue");
-    var pond = new Component("POND" , "3.7%", "9%", "79.3%", "33%" , "0", "", "hrm chem bio", "orange");
-    var garden = new Component("GARDEN" , "5.1%", "4.2%", "73.8%", "52%" , "0", "", "hrm chem bio", "yellow");
-    
-    title.handleClick();
-    title.disabled = true;
-    
-    //testing
-    //kala.handleClick();
-    //scale = 2.5;
-    //zoom();
 </script>
 
 </html>
