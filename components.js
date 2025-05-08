@@ -226,7 +226,7 @@ function initComponents(window){
     var wait = new Component("WAIT", "wait", "4.8%", "3.6%", "70.25%", "88.5%", "0", orange, "smol", "#DE8F5F");
 
 //4.SPORTS ZONE (2)
-    var gym = new Component("GYM", "gym", "50%", "34%", "5%" , "47.86%", "11.6", red, "hrm chem bio", "#ff4040", 1.7);
+    var gym = new Component("GYM", "gym", "50%", "34%", "5%" , "47.86%", "11.6", red, "hrm chem bio", "#DC8686", 1.7);
     vs = [
     4,0,
     26.65,0,
@@ -236,7 +236,7 @@ function initComponents(window){
     0.7,13.7
     ];
     gym.mapComponent.style.clipPath = createClipPath(vs);
-    var field = new Component("FIELD", "field", "27%", "20.3%", "16.15%" , "60.55%", "12", red, "hrm chem bio", "#ff2060", 1.7);
+    var field = new Component("FIELD", "field", "27%", "20.3%", "16.15%" , "60.55%", "12", red, "hrm chem bio", "#D37676", 1.7);
     field.mapComponent.style.borderRadius = "2.5vw";
 
 //5.ACADEMIC ZONE (3)
