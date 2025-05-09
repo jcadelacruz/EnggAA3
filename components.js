@@ -179,7 +179,7 @@ function initComponents(window){
     components = window.components;
     var title = new Component("Title", "title","0%","0%","50%","50%", "0", "", "", "", 1);
     //title.panelDetails.disabled = true;
-    title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
+    title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.");
     title.panelDetails.htmlHyperlink.style.display = "inline-block";
     title.panelDetails.htmlHyperlink.href = "academicZone.html";
     const purple="#B7B1F2",green="#D5E5D5",orange="#FFF1D5",red="#F6D6D6",blue="#D4F6FF";
