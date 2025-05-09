@@ -268,7 +268,7 @@ function initComponents(window){
 }
 
 function setBackButton(button){
-    button.addEventListener('çlick', returnToMainWindow);
+    button.addEventListener('click', returnToMainWindow);
 }
 function returnToMainWindow(){
     window.location = "index.html";
