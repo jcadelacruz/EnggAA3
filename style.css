@@ -38,7 +38,6 @@
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-    font-size: 24px;
 }
     
 body{
@@ -124,11 +123,14 @@ p{
     display: none;
     height: 18vh;
     position: relative;
-    font-size: 65%;
+    font-size: 18px;
 }
 .panelDetails img{
     height: 30px;
     width: 40px;
+    font-size: 18px;
+    display: inline-block;
+    float: left;
 }
 .panelDetails a{
     position: absolute;
