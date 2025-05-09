@@ -263,3 +263,10 @@ function initComponents(window){
     field.mapComponent.style.borderRadius = "2.5vw";
 
 }
+
+function setBackButton(button){
+    button.addEventListener('çlick', returnToMainWindow);
+}
+function returnToMainWindow(){
+    window.location = "index.html";
+}
