@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smooth Zoom and Drag to Pan</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #zoomInput {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1;
+    }
+
+    #container {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: #f0f0f0;
+      cursor: grab;
+    }
+
+    #container.dragging {
+      cursor: grabbing;
+    }
+
+    #content {
+      width: 2000px;
+      height: 2000px;
+      transform-origin: top left;
+      position: absolute;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background: coral;
+      border: 2px solid black;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+<input type="number" id="zoomInput" value="2" step="0.1" min="0.1" />
+
+<div id="container">
+  <div id="content">
+    <script>
+      for (let x = 0; x < 2000; x += 200) {
+        for (let y = 0; y < 2000; y += 200) {
+          const div = document.createElement('div');
+          div.className = 'box';
+          div.style.left = x + 'px';
+          div.style.top = y + 'px';
+          document.getElementById('content').appendChild(div);
+        }
+      }
+    </script>
+  </div>
+</div>
+
+<script>
+  const container = document.getElementById('container');
+  const content = document.getElementById('content');
+  const zoomInput = document.getElementById('zoomInput');
+
+  let scale = 1;
+  let targetScale = 1;
+  let translateX = 0, translateY = 0;
+  let targetX = 0, targetY = 0;
+
+  const animationSpeed = 0.1;
+
+  // Drag state
+  let isDragging = false;
+  let lastMouseX = 0;
+  let lastMouseY = 0;
+
+  // Smooth animation loop
+  function animate() {
+    scale += (targetScale - scale) * animationSpeed;
+    translateX += (targetX - translateX) * animationSpeed;
+    translateY += (targetY - translateY) * animationSpeed;
+
+    content.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    requestAnimationFrame(animate);
+  }
+
+  // Zoom and center on click
+  container.addEventListener('click', (e) => {
+    if (isDragging) return; // don't zoom if it's a drag
+
+    const rect = container.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+
+    const newScale = parseFloat(zoomInput.value);
+    if (isNaN(newScale) || newScale <= 0) return;
+
+    const contentX = (clickX - translateX) / scale;
+    const contentY = (clickY - translateY) / scale;
+
+    targetScale = newScale;
+    targetX = container.clientWidth / 2 - contentX * targetScale;
+    targetY = container.clientHeight / 2 - contentY * targetScale;
+  });
+
+  // Drag to pan
+  container.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+    container.classList.add('dragging');
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const dx = e.clientX - lastMouseX;
+    const dy = e.clientY - lastMouseY;
+
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+
+    targetX += dx;
+    targetY += dy;
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    container.classList.remove('dragging');
+  });
+
+  animate();
+</script>
+
+</body>
+</html>

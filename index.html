@@ -30,6 +30,10 @@
         </div>
         <p id="toCopy">copy</p>
     </div>
+
+    <div id="header">
+        
+    </div>
     <div id="parent">
         <div id="left">
             <div id="map">map</div>
@@ -103,10 +107,16 @@
     left.addEventListener("mouseup", ()=>{left.classList.remove("grab")});
     left.addEventListener("mousemove", (e)=>{
         if(!left.classList.contains("grab")) return;
-        translateX += e.movementX;
-        translateY += e.movementY;
-        targetX = translateX;
-        targetY = translateY;
+        targetX += e.movementX;
+        targetY += e.movementY;
+        // targetX = translateX;
+        // targetY = translateY;
+    });
+
+    left.addEventListener("touchmove", (e)=>{
+        targetX += e.movementX;
+        targetY += e.movementY;
+        console.log(e);
     });
 
     
