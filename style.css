@@ -110,20 +110,25 @@ p{
 #panel{
     width: 35vw;
     background-color: red;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .panelComponent{
     background-color: pink;
     border-style: solid;
     border-color: rgba(0, 0, 0, 50%);
     border-width: 0px 0px 1px 3px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .panelDetails{
+    padding: 0
     display: none;
     height: 18vh;
     position: relative;
     font-size: 18px;
+    margin: 0 14px;
+    
+    text-align: justify;
+    text-justify: inter-word;
 }
 .panelDetails img{
     height: 30px;
