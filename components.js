@@ -128,11 +128,12 @@ class PanelDetails{
         img.src = imag;
         img.alt = pc.name;
         this.htmlImage = img;
+        this.htmlImage.style.display = "none";
         this.htmlComponent.appendChild(img);
         
         let t = document.createElement('p');
         t.innerHTML = d;
-        this.htmlComponent.appendChild(t);
+        this.htmlComponent.appendChild("    "+t);
         
         let l = document.createElement('a');
         l.href = redir;
