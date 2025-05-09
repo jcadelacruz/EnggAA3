@@ -148,7 +148,7 @@ p{
 #legend{
     position: fixed;
     width: 30vw;
-    height: 9vw;
+    height: 30vw;
     z-index: 10;
     left: 0;
     top: 45vh;
@@ -162,5 +162,6 @@ p{
     background-image: url("https://github.com/jcadelacruz/EnggAA3/blob/main/legend.png?raw=true");
     height: inherit;
     width: inherit;
+    background-repeat: no-repeat;
     background-size: 100%;
 }
