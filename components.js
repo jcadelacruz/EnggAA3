@@ -96,6 +96,7 @@ class PanelComponent{
         document.getElementById("panel").appendChild(pc);
         let nameHTML = document.createElement('p');
         nameHTML.innerHTML = n;
+        nameHTML.style.fontSize = "24px";
         pc.appendChild(nameHTML);
         pc.style.backgroundColor = i;
         pc.addEventListener("mouseover", t.handleMouseover.bind(t));
@@ -103,7 +104,7 @@ class PanelComponent{
         pc.addEventListener("click", t.handleClick.bind(t));
         this.htmlComponent = pc;
         
-        this.panelDetails = new PanelDetails(this,d,i,c);
+        this.panelDetails = new PanelDetails(this,d,i,c, "images/panelDtl"+n+".img");
     }
     highlight(isReversed){
         if(isReversed){
@@ -115,7 +116,7 @@ class PanelComponent{
     }
 }
 class PanelDetails{
-    constructor(pc,d,i,c){
+    constructor(pc,d,i,c, imag){
         this.disabled = false; 
         
         let pd = document.createElement('div');
@@ -124,8 +125,9 @@ class PanelDetails{
         this.htmlComponent = pd;
         
         let img = document.createElement('img');
-        img.src = i;
+        img.src = imag;
         img.alt = pc.name;
+        this.htmlImage = img;
         this.htmlComponent.appendChild(img);
         
         let t = document.createElement('p');
@@ -135,6 +137,7 @@ class PanelDetails{
         let l = document.createElement('a');
         l.href = pc.name+'.html';
         l.textContent = 'See Details [>]';
+        this.htmlHyperlink = l;
         this.htmlComponent.appendChild(l);
     }
     open(){
