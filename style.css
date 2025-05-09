@@ -71,6 +71,10 @@ p{
     display: flex;
     justify-content: center;
     cursor: pointer;
+
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6FJJCLFxcYKDaG-wXn9oei3OBCKBPYu-ucGVcBvDrgt3WzReFn4z_x5xLjpLoINBCiIA&usqp=CAU');
+    background-size: 100px;
+    background-repeat: repeat;
 }
 #left.grab{
     cursor: grabbing;
