@@ -138,7 +138,7 @@ class PanelDetails{
         l.href = redir;
         l.textContent = 'See Details [>]';
         console.log(this,redir);
-        if(redir===""){
+        if(true)//redir===""){//manual override
             l.style.display = "none";
         }
         this.htmlHyperlink = l;
