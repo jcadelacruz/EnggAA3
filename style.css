@@ -120,6 +120,7 @@ p{
     border-style: solid;
     border-color: rgba(0, 0, 0, 50%);
     border-width: 0px 0px 1px 3px;
+    padding: 3px;
 }
 .panelDetails{
     padding: 0;
@@ -147,15 +148,16 @@ p{
 }
 #legend{
     position: fixed;
-    width: 30vw;
-    height: 30vw;
+    width: min(30vw, 300px);
+    height: min(30vw, 300px);
     z-index: 10;
     left: 0;
-    top: 45vh;
+    bottom: 0;
     background-size: 100%;
     background-repeat: no-repeat;
     background-color: rgba(255,255,255,0.8);
     padding: 10px;
+    border-radius: 0px 20px 0px 0px;
 }
 
 #legend > div{
