@@ -181,7 +181,7 @@ function initComponents(window){
     title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
     const purple="#B7B1F2",green="#D5E5D5",orange="#FFF1D5",red="#F6D6D6",blue="#D4F6FF";
 //1.RESIDENTIAL ZONE (1)
-    var dorms = new Component("DORMITORIES", "dorm", "21.5%", "37%", "43%", "8.5%" , "0", "rgb(221 196 245)", "The location at the back of the campus enhances security and keeps the dormitories slightly secluded from the public-facing areas. Additionally, the path to the dorms avoids passing by the faculty and classrooms, reducing unnecessary foot traffic and keeping academic areas undisturbed. The dormitories contain a chapel, a study room, a kitchen, water dispensers and showers with both hot and cold water, air-conditioned rooms, and a billiard table.", "#574964", "dormsZone.html");
+    var dorms = new Component("DORMITORIES", "dorm", "21.5%", "37%", "43%", "8.5%" , "0", "rgb(221 196 245)", "The location at the back of the campus enhances security and keeps the dormitories slightly secluded from the public-facing areas. Additionally, the path to the dorms avoids passing by the faculty and classrooms, reducing unnecessary foot traffic and keeping academic areas undisturbed. The dormitories contain a chapel, a study room, a kitchen, water dispensers and showers with both hot and cold water, air-conditioned rooms, and a billiard table.", "#d899e8", "dormsZone.html");
     let vs = [
     0,0,
     13.7,0,
