@@ -120,7 +120,7 @@ p{
     overflow-y: auto;
 }
 .panelDetails{
-    padding: 0
+    padding: 0;
     display: none;
     height: 18vh;
     position: relative;
