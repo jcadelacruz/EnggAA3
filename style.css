@@ -145,3 +145,22 @@ p{
     opacity: 80%;
     text-decoration: none;
 }
+#legend{
+    position: fixed;
+    width: 30vw;
+    height: 9vw;
+    z-index: 10;
+    left: 0;
+    top: 45vh;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: rgba(255,255,255,0.8);
+    padding: 10px;
+}
+
+#legend > div{
+    background-image: url("https://github.com/jcadelacruz/EnggAA3/blob/main/legend.png?raw=true");
+    height: inherit;
+    width: inherit;
+    background-size: 100%;
+}
