@@ -174,7 +174,7 @@ function initComponents(window){
     title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
     const purple="#B7B1F2",green="#D5E5D5",orange="#FFF1D5",red="#F6D6D6",blue="#D4F6FF";
 //1.RESIDENTIAL ZONE (1)
-    var dorms = new Component("DORM", "dorm", "21.5%", "37%", "43%", "8.5%" , "0", purple, "This is breindel yes", "#574964");
+    var dorms = new Component("DORM", "dorm", "21.5%", "37%", "43%", "8.5%" , "0", "rgb(221 196 245)", "This is breindel yes", "#574964");
     let vs = [
     0,0,
     13.7,0,
