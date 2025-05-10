@@ -177,9 +177,9 @@ function createClipPath(vs){
 function initComponents(window){
     window.components = {};
     components = window.components;
-    var title = new Component("Title", "title","0%","0%","50%","50%", "0", "", "", "", 1);
+    var title = new Component("PSHS", "title","0%","0%","50%","50%", "0", "", "", "", 1);
     //title.panelDetails.disabled = true;
-    components.title.panelDetails.htmlComponent.innerHTML = "The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.";
+    components.title.panelDetails.htmlComponent.innerHTML = "Philippine Science High School - The plan is focused on creating a harmonious environment that fosters collaboration, innovation, and a deep connection to nature, inviting students and faculty alike to thrive in a vibrant and inspiring academic oasis.<span id='noted'>(Click on buildings to read more!)</span>";
     components.title.panelDetails.htmlHyperlink.style.display = "inline-block";
     components.title.panelDetails.htmlHyperlink.href = "academicZone.html";
     components.title.zoom = 1;
