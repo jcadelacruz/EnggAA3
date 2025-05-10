@@ -68,7 +68,6 @@ p{
 #left{
     width: 65vw;
     height: 100vh;
-    background-color: white;
     overflow-x: hidden;
     overflow-y: hidden;
     position: relative;
@@ -76,10 +75,24 @@ p{
     display: flex;
     justify-content: center;
     cursor: pointer;
+}
+#left::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 65vw;
+    height: 100vh;
+    background-color: white;
 
     background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6FJJCLFxcYKDaG-wXn9oei3OBCKBPYu-ucGVcBvDrgt3WzReFn4z_x5xLjpLoINBCiIA&usqp=CAU');
     background-size: 100px;
     background-repeat: repeat;
+
+
+    opacity: 0.5; 
+    z-index: -1; 
 }
 #left.grab{
     cursor: grabbing;
@@ -105,6 +118,7 @@ p{
     
     /* transition: transform 0.2s; */
     background-image: url('https://github.com/jcadelacruz/EnggAA3/blob/main/4AA2%20SiteDevelopmentPlan%20ENGGW-03.png?raw=true');
+    
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
