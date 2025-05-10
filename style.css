@@ -33,6 +33,11 @@
     height: 55px;
 }
 
+#noted{
+    font-weight: bold;
+    display: block;
+}
+
 *{
     font-family: "Quicksand", sans-serif;
     font-optical-sizing: auto;
